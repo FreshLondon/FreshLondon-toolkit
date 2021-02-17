@@ -1,0 +1,41 @@
+#form-home-contact {
+  form {
+	label.forminator-label {
+	  display: none;
+	}
+
+	input {
+	  font-family: $font-default;
+
+	  &[type="text"],
+	  &[type="email"] {
+		text-align: center;
+		padding: .5rem;
+		border: none;
+		border-bottom: 2px solid #292929;
+		background: transparent;
+	  }
+	}
+
+	.field-message {
+	  input {
+		width: 100%;
+	  }
+	}
+
+	#submit {
+	  button {
+		padding: 0;
+		margin: 0;
+		width: 3.8125rem;
+		height: 2.0625rem;
+		font-size: 0;
+		border: none;
+		background-image: url(../images/arrow-blue-button.png);
+		background-color: transparent;
+		background-size: contain;
+		background-position: center center;
+	  }
+	}
+  }
+}
