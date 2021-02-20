@@ -2,6 +2,7 @@ html {
   margin-top: 0 !important;
 }
 
+
 div#wpadminbar {
   display: none;
 }
@@ -17,3 +18,31 @@ div#wpadminbar {
 //.oxy-header {
 //  scroll-snap-align: start;
 //}
+//
+//.ct-inner-content > section {
+//background-color: transparent !important;
+//}
+.ball-blue-left {
+  position: relative;
+
+  &:before {
+	position: absolute;
+	left: -2.56rem;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 1.5625rem;
+	height: 1.5625rem;
+	content: '';
+	background-image: url('../images/blueball.png');
+	background-size: 100% 100%;
+  }
+}
+
+#home-title-tech-prod {
+  &:before {
+	position: absolute;
+	left: -1.75rem;
+	width: 0.8125rem;
+	height: 0.8125rem;
+  }
+}
