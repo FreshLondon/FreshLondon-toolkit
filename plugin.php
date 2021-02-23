@@ -8,8 +8,8 @@ Author:			FreshLondon
 Author URI:		https://freshlondon.biz
 */
 
-if (!defined('WPINC')) {
-    die;
+if ( ! defined( 'WPINC' ) ) {
+	die;
 }
 
 
@@ -17,53 +17,63 @@ if (!defined('WPINC')) {
  * Define Constants
  */
 // plugin path
-define('TOOLKIT_PATH', plugin_dir_url( __FILE__ ));
+define( 'TOOLKIT_PATH', plugin_dir_url( __FILE__ ) );
 //Use the below line for testing and building
-define('TOOLKIT_VERSION', time());
+define( 'TOOLKIT_VERSION', time() );
 //hide the line above and show the line below once finished developing, just increase the version by 0.1 and save the file!
 //define('TOOLKIT_VERSION', '1.0.0');
 
 // add PHP custom stuff
-include(TOOLKIT_PATH . '/functions/excerpt_length.php');
+include( TOOLKIT_PATH . '/functions/excerpt_length.php' );
 // add more custom php to this file here:
-include(TOOLKIT_PATH . '/functions/custom_php.php');
+include( TOOLKIT_PATH . '/functions/custom_php.php' );
 
 /**
  * Enqueue styles
  */
-add_action('wp_enqueue_scripts', 'fl_toolkit_enqueue_stuff', 15);
+add_action( 'wp_enqueue_scripts', 'fl_toolkit_enqueue_stuff', 15 );
 function fl_toolkit_enqueue_stuff() {
 
 	// load these additional styles/scripts
-	wp_enqueue_script('fl-toolkit-script-header', TOOLKIT_PATH . '/assets/js/header.js', array(), TOOLKIT_VERSION, false);
-	wp_enqueue_script('fl-toolkit-script-scroll-footer', TOOLKIT_PATH . '/assets/js/jquery.scrollify.js', array(), TOOLKIT_VERSION, false);
-	$userID = get_current_user_id();
-	$alexID = '1';
-	if ($userID != $alexID) {
-		wp_enqueue_script( 'fl-toolkit-script-footer', TOOLKIT_PATH . '/assets/js/footer.js', array(), TOOLKIT_VERSION, true );
-	}
-	wp_enqueue_style('fl-toolkit-styles', TOOLKIT_PATH . '/assets/css/styles.css', array(), TOOLKIT_VERSION, 'screen');
+	wp_enqueue_script( 'fl-toolkit-script-header', TOOLKIT_PATH . '/assets/js/header.js', array(), TOOLKIT_VERSION, false );
+	wp_enqueue_script( 'fl-toolkit-script-scroll-footer', TOOLKIT_PATH . '/assets/js/jquery.scrollify.js', array(), TOOLKIT_VERSION, false );
+	$userID  = get_current_user_id();
+	$alexID  = '1';
+	$chrisID = '2';
+//	if ($userID != $alexID) {
+	wp_enqueue_script( 'fl-toolkit-script-footer', TOOLKIT_PATH . '/assets/js/footer.js', array(), TOOLKIT_VERSION, true );
+//	}
+	wp_enqueue_style( 'fl-toolkit-styles', TOOLKIT_PATH . '/assets/css/styles.css', array(), TOOLKIT_VERSION, 'screen' );
 
 
 	// if user is editor/administrator, load these scripts and styles (can not be seen by regular site visitors)
-	if (current_user_can('editor') || current_user_can('administrator')) {
-		wp_enqueue_script('fl-toolkit-script-testing-header', TOOLKIT_PATH . '/assets/js/header-testing.js', array(), time(), false);
+	if ( current_user_can( 'editor' ) || current_user_can( 'administrator' ) ) {
+		wp_enqueue_script( 'fl-toolkit-script-testing-header', TOOLKIT_PATH . '/assets/js/header-testing.js', array(), time(), false );
 //		wp_enqueue_script('fl-toolkit-script-testing-footer', TOOLKIT_PATH . '/assets/js/footer-testing.js', array(), time(), true);
-		wp_enqueue_style('fl-toolkit-styles-testing', TOOLKIT_PATH . '/assets/css/styles-testing.css', array(), time(), 'screen');
+		wp_enqueue_style( 'fl-toolkit-styles-testing', TOOLKIT_PATH . '/assets/css/styles-testing.css', array(), time(), 'screen' );
 	}
 
+}
+
+
+
+add_action( 'wp_enqueue_scripts', 'dequeue_dequeue_plugin_styles', 9999 );
+function dequeue_dequeue_plugin_styles() {
+	wp_dequeue_style( 'forminator-grid-default' ); //Name of Style ID.
+	wp_dequeue_style( 'forminator-grid-default-css' ); //Name of Style ID.
+	wp_dequeue_style( 'forminator-utilities' ); //Name of Style ID.
 }
 
 
 /**
  * Function for debugging PHP
  */
-if (!function_exists('debug')) {
-    function debug($data) {
-        if (current_user_can('editor') || current_user_can('administrator')) {
-            print('<pre style="display:none;">');
-            print_r($data);
-            print('</pre>');
-        }
-    }
+if ( ! function_exists( 'debug' ) ) {
+	function debug( $data ) {
+		if ( current_user_can( 'editor' ) || current_user_can( 'administrator' ) ) {
+			print( '<pre style="display:none;">' );
+			print_r( $data );
+			print( '</pre>' );
+		}
+	}
 }

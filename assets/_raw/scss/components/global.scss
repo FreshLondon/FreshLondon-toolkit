@@ -20,8 +20,16 @@ div#wpadminbar {
 //}
 //
 //.ct-inner-content > section {
-//background-color: transparent !important;
+//  background-color: transparent !important;
 //}
+//#vehicle1,
+//#vehicle2,
+//#vehicle2blue,
+//#vehicle3 {
+//  display: none !important;
+//}
+
+
 .ball-blue-left {
   position: relative;
 
@@ -37,6 +45,7 @@ div#wpadminbar {
 	background-size: 100% 100%;
   }
 }
+
 
 #home-title-tech-prod {
   &:before {

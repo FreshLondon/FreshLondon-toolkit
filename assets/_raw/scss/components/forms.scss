@@ -10,10 +10,12 @@
 	  &[type="text"],
 	  &[type="email"] {
 		text-align: center;
-		padding: .5rem;
 		border: none;
 		border-bottom: 2px solid #292929;
 		background: transparent;
+		font-size: 1rem;
+		padding: 1.125rem .5rem;
+		width: 100%;
 	  }
 	}
 
@@ -38,4 +40,14 @@
 	  }
 	}
   }
+}
+
+
+
+
+
+//override forminator bullshit addon CSS:
+.et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form:not(.forminator-size--small)[data-grid=open] .forminator-row:not(:last-child),
+.forminator-ui.forminator-custom-form:not(.forminator-size--small)[data-grid=open] .forminator-row:not(:last-child) {
+  margin-bottom: 3.6875rem;
 }

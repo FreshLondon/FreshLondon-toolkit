@@ -1,4 +1,52 @@
 //footer scripts here
+var waitForFinalEvent = (function () {
+	var timers = {};
+	return function (callback, ms, uniqueId) {
+		if (!uniqueId) {
+			uniqueId = "Don't call this twice without a uniqueId";
+		}
+		if (timers[uniqueId]) {
+			clearTimeout(timers[uniqueId]);
+		}
+		timers[uniqueId] = setTimeout(callback, ms);
+	};
+})();
+
+function setFontSize () {
+	let winWidth = jQuery(window).width();
+	
+	// if (winWidth <= 1124) { /* ... */
+	// 	//base font size at 375px is 16.
+	// 	let baseFontSizeSmall = 16;
+	// 	let winPercentSmall = (375 - winWidth);
+	// 	let winFractionSmall = (winPercentSmall * 0.011458333333333);
+	// 	let fontSizeSmallFinal = (baseFontSizeSmall - winFractionSmall);
+	// 	console.log('handheld detected, font size is: ' + fontSizeSmallFinal);
+	// 	$('html').css("font-size", fontSizeSmallFinal);
+	// } else if (winWidth > 1124) { /* ... */
+	if (winWidth > 992) {
+		//base font size at 1920px is 16.
+		let baseFontSizeLarge = 16;
+		// let winPercentLarge = (1920 - winWidth);
+		// let winFractionLarge = (winPercentLarge * 0.008333333333333);
+		// let fontSizeLargeFinal = (baseFontSizeLarge - winFractionLarge);
+		let winPercent = winWidth / 1920;
+		console.log('winpercent is: ' + winPercent);
+		let fontSizeLargeFinal = (baseFontSizeLarge * winPercent);
+		
+		console.log('desktop detected, font size is: ' + fontSizeLargeFinal);
+		jQuery('html').css("font-size", fontSizeLargeFinal + 'px');
+	} else {
+		jQuery('html').css("font-size", '16px');
+	}
+}
+
+// $(document).ready(setFontSize);
+jQuery(window).resize(setFontSize);
+jQuery(window).on('load', function () {
+	console.log('footer scripts finished');
+});
+
 //?ct_builder=true
 jQuery(document).ready(function () {
 	if (window.location.href.indexOf("ct_builder") > -1) {
@@ -12,6 +60,14 @@ jQuery(document).ready(function () {
 		vehicle1section = jQuery('#vehicle1section');
 		vehicle1wrapper = jQuery('#vehicle1wrapper');
 		vehicle1 = jQuery('#vehicle1');
+		vehicle1spinStart = (0.5 * (parseFloat(jQuery('#section4').position().top) - parseFloat(jQuery('#section3').position().top))) + parseFloat(jQuery('#section3').position().top);
+		vehicle1spinStop = parseFloat(jQuery('#section4').position().top);// + parseFloat(0.5*windowHeight);
+		jQuery(vehicle1).css('transition', 'ease transform 1s');
+		jQuery(vehicle1).css({
+			'transform-origin': 'bottom left 0px',
+			'-webkit-transform-origin': 'bottom left 0px'
+		});
+		console.log(vehicle1.height());
 		//vehicle 2 (car) section
 		vehicle2section = jQuery('#vehicle2section');
 		vehicle2wrapper = jQuery('#vehicle2wrapper');
@@ -98,22 +154,22 @@ jQuery(document).ready(function () {
 				
 				window.fromPosition = 2;
 			}
-			if ((scrollPosition >= 3 * windowHeight) && (scrollPosition < 4 * windowHeight && window.fromPosition != 3)) {
+			if (scrollPosition >= vehicle1spinStart) {
 				console.log(window.fromPosition);
 				window.fromPosition = 3;
-				jQuery(vehicle1).css('transition', 'ease transform 0.01s');
-				jQuery(vehicle1).animate({rotation: 90}, {
-					duration: 1000,
-					easing: 'linear',
-					step: function () {
-						window.yPos = 0.3 * (jQuery('#vehicle1').height() / 90) * this.rotation;
-						vehicle1.css({transform: 'rotate(' + this.rotation + 'deg)'});
-						
-					},
-					complete: function () {
-						vehicle2.css({transform: 'translateX(-60vw)'});
-					}
-				});
+				jQuery(vehicle1).css({transform: 'rotate(90deg)'});
+				//jQuery(vehicle1).animate({rotation: 90}, {
+				//	duration: 1000,
+				//easing: 'linear',
+				//step: function () {
+				//	window.yPos = 0.3 * (jQuery('#vehicle1').height() / 90) * this.rotation;
+				//vehicle1.css({transform: 'rotate(' + this.rotation + 'deg)'});
+				
+				//},
+				//complete: function () {
+				//	vehicle2.css({transform: 'translateX(-60vw)'});
+				//}
+				//});
 				
 			}
 			
@@ -212,3 +268,5 @@ jQuery(document).ready(function () {
 		
 	}
 });
+
+setFontSize();
