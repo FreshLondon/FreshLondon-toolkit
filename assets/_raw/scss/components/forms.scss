@@ -16,6 +16,10 @@
 		font-size: 1rem;
 		padding: 1.125rem .5rem;
 		width: 100%;
+
+		&:focus {
+		  outline: none;
+		}
 	  }
 	}
 
@@ -41,9 +45,6 @@
 	}
   }
 }
-
-
-
 
 
 //override forminator bullshit addon CSS:

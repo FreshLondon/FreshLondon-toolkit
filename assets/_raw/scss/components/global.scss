@@ -8,6 +8,22 @@ div#wpadminbar {
 }
 
 
+.hide-desktop {
+  display: block;
+  @include respond-above(md) {
+	display: none;
+  }
+}
+
+.hide-mobile {
+  display: none;
+  @include respond-above(md) {
+	display: block;
+  }
+}
+
+
+
 //html:not(.ng-scope),
 //body:not(.oxygen-builder-body) {
 //  scroll-snap-type: y mandatory;
@@ -19,15 +35,15 @@ div#wpadminbar {
 //  scroll-snap-align: start;
 //}
 //
-//.ct-inner-content > section {
-//  background-color: transparent !important;
-//}
-//#vehicle1,
-//#vehicle2,
-//#vehicle2blue,
-//#vehicle3 {
-//  display: none !important;
-//}
+.ct-inner-content > section {
+  background-color: transparent !important;
+}
+#vehicle1,
+#vehicle2,
+#vehicle2blue,
+#vehicle3 {
+  display: none !important;
+}
 
 
 .ball-blue-left {

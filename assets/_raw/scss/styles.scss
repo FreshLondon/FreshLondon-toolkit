@@ -8,6 +8,7 @@ Author: FreshLondon
 
 @import "components/global";
 body {
+  @import "components/header";
   @import "components/navigation";
   @import "components/forms";
 }
