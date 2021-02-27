@@ -33,14 +33,19 @@
 	  button {
 		padding: 0;
 		margin: 0;
-		width: 3.8125rem;
-		height: 2.0625rem;
+		width: 4.19rem;
+		height: 2.3rem;
 		font-size: 0;
 		border: none;
 		background-image: url(../images/arrow-blue-button.png);
 		background-color: transparent;
 		background-size: contain;
 		background-position: center center;
+
+		@include respond-above(md) {
+		  width: 3.8125rem;
+		  height: 2.0625rem;
+		}
 	  }
 	}
   }
@@ -51,4 +56,15 @@
 .et-db #et-boc .et_pb_module .forminator-ui.forminator-custom-form:not(.forminator-size--small)[data-grid=open] .forminator-row:not(:last-child),
 .forminator-ui.forminator-custom-form:not(.forminator-size--small)[data-grid=open] .forminator-row:not(:last-child) {
   margin-bottom: 3.6875rem;
+  @include respond-below(md) {
+	flex-direction: column;
+	margin-bottom: 0;
+	.forminator-col {
+	  margin-bottom: 1.615rem;
+
+	  &.field-message {
+		margin-bottom: 1.89rem;
+	  }
+	}
+  }
 }

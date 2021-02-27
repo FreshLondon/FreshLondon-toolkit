@@ -1,5 +1,8 @@
 html {
   margin-top: 0 !important;
+  @include respond-below(sm) {
+	font-size: 11.0116px;
+  }
 }
 
 
@@ -15,13 +18,13 @@ div#wpadminbar {
   }
 }
 
+
 .hide-mobile {
   display: none;
   @include respond-above(md) {
 	display: block;
   }
 }
-
 
 
 //html:not(.ng-scope),
@@ -38,14 +41,14 @@ div#wpadminbar {
 .ct-inner-content > section {
   background-color: transparent !important;
 }
-#vehicle1,
-#vehicle2,
-#vehicle2blue,
-#vehicle3 {
-  display: none !important;
-}
 
 
+//#vehicle1,
+//#vehicle2,
+//#vehicle2blue,
+//#vehicle3 {
+//  display: none !important;
+//}
 .ball-blue-left {
   position: relative;
 
@@ -69,5 +72,12 @@ div#wpadminbar {
 	left: -1.75rem;
 	width: 0.8125rem;
 	height: 0.8125rem;
+  }
+
+  @include respond-below(md) {
+	position: relative;
+	&:before {
+	  display: none;
+	}
   }
 }

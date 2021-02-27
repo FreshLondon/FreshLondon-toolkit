@@ -24,3 +24,31 @@
 	}
   }
 }
+
+
+//mobile toggle
+.oxy-nav-menu-hamburger-wrap {
+  width: unset !important;
+  height: unset !important;
+  padding: 2.027rem 1.92rem 1.92rem;
+  margin: 0 !important;
+
+  .oxy-nav-menu-hamburger {
+	width: 0.34rem !important;
+	height: unset !important;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: unset;
+	flex-direction: row;
+
+	.oxy-nav-menu-hamburger-line {
+	  width: .34rem !important;
+	  height: .34rem !important;
+	  border-radius: 50% !important;
+	  margin-bottom: 0.412rem;
+	  &:last-child {
+		margin-bottom: 0;
+	  }
+	}
+  }
+}
