@@ -111,15 +111,13 @@ jQuery(document).ready(function () {
 		vehicle2bluewrapper = jQuery('#vehicle2bluewrapper');
 		vehicle2blue = jQuery('#vehicle2blue');
 		vehicle2blue.css('opacity', '1');
-		transSmoother = 0;
 		// jQuery(vehicle2bluesection).css('visibility', 'visible');
 		// jQuery(vehicle2blue).css('transition', 'none');
 		// jQuery(vehicle2blue).css({transform: 'translateX(-80vw)'});
 		//vehicle 3 (bus) section
 		vehicle3section = jQuery('#vehicle3section');
 		vehicle3wrapper = jQuery('#vehicle3wrapper');
-		vehicle3 = jQuery(jQuery('.vehicle3js')[((jQuery(window).width() >992)?0:1)]);
-		vehicle3.css('transition', 'none');
+		vehicle3 = jQuery('#vehicle3');
 		vehicle3.css({transform: 'translateX(100vw)'});
 		// jQuery(document).ready(function () {
 		jQuery(window).on('load', function () {
@@ -171,24 +169,18 @@ jQuery(document).ready(function () {
 				sectionSpider.css({transform: 'translateY(-' + Math.min(sectionSpider.height()/4, ( 1*(sectionSpider.height()/100) *  ((0.5*((scrollPosition / (section1start + section1Height))*100)))) ) + 'px)'});
 				vehicle1.css({transform: 'translateY(-' + Math.min(sectionSpider.height()/4,( 1*(sectionSpider.height()/100) * ((0.5*((scrollPosition / (section1start + (1*section1Height)))*100))))) + 'px)'});
 				vehicle1purple.css({transform: 'translateY(' + ( 1*(sectionSpider.height()/100) * ((0.5*((scrollPosition / (section1start + (1*section1Height)))*100)))) + 'px)'});
-				vehicle3.css({transform: 'translateX(100vw)'});
+				//jQuery(vehicle1).css('transition', 'ease transform 0.1s');
 			}
 			
-			PurpleMobile = (jQuery(window).width() < 991) ? (0.2*vehicle1.height()) : 0;
-			RotateMobile = 2 * PurpleMobile;
-			Vehicle2Mobile = (jQuery(window).width() < 991) ? (0.8*vehicle2.width()) : 0;
-			
-			if(scrollPosition > section1start + (0.5*section1Height) + PurpleMobile && scrollPosition < section2start + PurpleMobile){
+			if(scrollPosition > section1start + (0.5*section1Height) && scrollPosition < section2start){
 				sectionSpider.css('transition', 'ease transform 0.1s');
 				vehicle1.css('transition', 'ease transform 0.1s');
 				sectionSpider.css({transform: 'translateY(-'+(sectionSpider.height()/4)+'px)'});
 				vehicle1.css({transform: 'translateY(-'+(sectionSpider.height()/4)+'px)'});
 				vehicle1purple.css({transform: 'translateY(-'+(sectionSpider.height()/4)+'px)'});
-				vehicle3.css({transform: 'translateX(100vw)'});
-			} else if(scrollPosition > section2start + PurpleMobile){
+			} else if(scrollPosition > section2start){
 				sectionSpider.css({transform: 'translateY(-'+(sectionSpider.height()/4)+'px)'});
 				vehicle1purple.css({transform: 'translateY(-'+(sectionSpider.height()/4)+'px)'});
-				vehicle3.css({transform: 'translateX(100vw)'});
 				//vehicle1.css({transform: 'translateY(-'+(sectionSpider.height()/4)+'px)'});
 			}
 			//console.log('vehicle1 positition is: ' + (vehicle1.offset().top + vehicle1.height()) );
@@ -213,130 +205,92 @@ jQuery(document).ready(function () {
 				sectionSpider.css('opacity', '1');
 			}
 			
-			if (jQuery(vehicle1).offset().top + vehicle1.height() < vehicle1trans + PurpleMobile) { // ensure fade back completes on scroll up
+			if (jQuery(vehicle1).offset().top + vehicle1.height() < vehicle1trans) { // ensure fade back completes on scroll up
 				jQuery(vehicle1).css('transition', 'ease transform 0.1s');
 				jQuery(vehicle1purple).css('transition', 'ease transform 0.1s');
 				vehicle1purple.css('opacity', '0');
 				vehicle1.css('opacity', '1');
-				vehicle3.css({transform: 'translateX(100vw)'});
 			}
 			
-			if (jQuery(vehicle1).offset().top + vehicle1.height() >= vehicle1trans + PurpleMobile && jQuery(vehicle1).offset().top + vehicle1.height()  <= vehicle1trans + (0.5*section2Height) + PurpleMobile) { // vehicle1 purple fade in
-				vehicle1purple.css('opacity', getColour(vehicle1trans + PurpleMobile, vehicle1trans + (0.5*section2Height) + PurpleMobile));
-				vehicle1.css('opacity', 1 - getColour(vehicle1trans + PurpleMobile, vehicle1trans + (0.5*section2Height) + PurpleMobile));
-				vehicle3.css({transform: 'translateX(100vw)'});
+			if (jQuery(vehicle1).offset().top + vehicle1.height() >= vehicle1trans && jQuery(vehicle1).offset().top + vehicle1.height()  <= vehicle1trans + (0.5*section2Height)) { // vehicle1 purple fade in
+				vehicle1purple.css('opacity', getColour(vehicle1trans, vehicle1trans + (0.5*section2Height)));
+				vehicle1.css('opacity', 1 - getColour(vehicle1trans, vehicle1trans + (0.5*section2Height)));
 			}
-			if (jQuery(vehicle1).offset().top + vehicle1.height()  >= vehicle1trans + (0.5*section2Height) + PurpleMobile && jQuery(vehicle1).offset().top + vehicle1.height()  <= section3start + PurpleMobile) { // vehicle1 purple fade out
-				vehicle1purple.css('opacity', 1 - getColour(vehicle1trans + (0.5*section2Height) + PurpleMobile, section3start + PurpleMobile));
-				vehicle1.css('opacity', getColour(vehicle1trans + (0.5*section2Height) + PurpleMobile, section3start + PurpleMobile));
-				vehicle3.css({transform: 'translateX(100vw)'});
+			if (jQuery(vehicle1).offset().top + vehicle1.height()  >= vehicle1trans + (0.5*section2Height) && jQuery(vehicle1).offset().top + vehicle1.height()  <= section3start) { // vehicle1 purple fade out
+				vehicle1purple.css('opacity', 1 - getColour(vehicle1trans + (0.5*section2Height), section3start));
+				vehicle1.css('opacity', getColour(vehicle1trans + (0.5*section2Height), section3start));
 			}
 			
-			if (jQuery(vehicle1).offset().top + vehicle1.height() > section3start + PurpleMobile) { // ensure full fade off
+			if (jQuery(vehicle1).offset().top + vehicle1.height() > section3start) { // ensure full fade off
 				vehicle1purple.css('opacity', '0');
 				vehicle1.css('opacity', '1');
-				vehicle3.css({transform: 'translateX(100vw)'});
 			}
 			
-			if (jQuery(vehicle1).offset().top + (0.5 * jQuery(vehicle1).height()) < section4start + RotateMobile && jQuery(vehicle1).offset().top + (0.5 * jQuery(vehicle1).height()) > section2start + RotateMobile) { // ensure 0degree rotation on scroll up
+			if (jQuery(vehicle1).offset().top + (0.5 * jQuery(vehicle1).height()) < section4start && jQuery(vehicle1).offset().top + (0.5 * jQuery(vehicle1).height()) > section2start) { // ensure 0degree rotation on scroll up
 				vehicle1.css({transform: 'rotate(0deg) translateY(-'+(sectionSpider.height()/4)+'px)'});
-				vehicle3.css({transform: 'translateX(100vw)'});
 			}
 			
 			
 			//if (jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) >= section4start && jQuery(vehicle1).offset().top + (0.5 * jQuery(vehicle1).height()) <= vehicle1RotateTo + (0.5 * jQuery('#section4circle').height())) { // vehicle1 rotate
-			if (jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) >= section4start + RotateMobile && jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) <= vehicle1RotateTo + RotateMobile ) { // vehicle1 rotate
+			if (jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) >= section4start && jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) <= vehicle1RotateTo ) { // vehicle1 rotate
 				//jQuery(vehicle1).offset().top + (0.5*jQuery(vehicle1).height())
 				window.fromPosition = 3;
 				//vehicle1Rotation = getDegrees(section4start, vehicle1RotateTo + (0.5 * jQuery('#section4circle').height()));
-				vehicle1Rotation = getDegrees(section4start + RotateMobile, vehicle1RotateTo-80 + RotateMobile );
+				vehicle1Rotation = getDegrees(section4start, vehicle1RotateTo );
 				vehicle1DriftPct = (vehicle1Rotation / 90) * 100
 				vehicle1Drift = (jQuery(vehicle1).width() / 100) * vehicle1DriftPct;
 				jQuery(vehicle1).css({transform: ' translate(0px, -'+((0.25*vehicle1Drift) + (sectionSpider.height()/4) )+'px) rotate(' + vehicle1Rotation + 'deg)'});
-				vehicle3.css({transform: 'translateX(100vw)'});
 				
 			}
 			
 			//if (scrollPosition + windowHeight > vehicle1RotateTo + (0.5 * jQuery('#section4circle').height()) && scrollPosition + windowHeight < section5start) { // ensure van turn is 90 degrees and centered
-			if (jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) > vehicle1RotateTo + (0.3*section5Height) + RotateMobile && jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) < section5start + (0.3*section5Height) + RotateMobile) { // ensure van turn is 90 degrees and centered
+			if (jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) > vehicle1RotateTo + (0.3*section5Height) && jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) < section5start + (0.3*section5Height)) { // ensure van turn is 90 degrees and centered
 				jQuery(vehicle1).css({transform: 'translate(0px, -' + ((0.25 * jQuery(vehicle1).width()) + (sectionSpider.height()/4)) + 'px) rotate(90deg)'});
-				vehicle3.css({transform: 'translateX(100vw)'});
 				//console.log('finish rotate!');
 			}
 			
-			if (jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) >= section5start + (0.1 * section5Height) + RotateMobile && jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) <= section5start + (0.3 * section5Height) + RotateMobile) { // vehicle1 exit
+			if (jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) >= section5start + (0.1 * section5Height) && jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) <= section5start + (0.3 * section5Height)) { // vehicle1 exit
 				
-				jQuery(vehicle1).css({transform: 'rotate(90deg) translate(-' + ((0.25 * jQuery(vehicle1).width()) + (sectionSpider.height()/4)) + 'px,' + ((25-getDriveOnOffPos(section5start + (0.1 * section5Height) + RotateMobile, section5start + (0.3 * section5Height) + RotateMobile)) * ((RotateMobile > 0)?2:1) ) + 'vw) '});
-				vehicle3.css({transform: 'translateX(100vw)'});
+				jQuery(vehicle1).css({transform: 'rotate(90deg) translate(-' + ((0.25 * jQuery(vehicle1).width()) + (sectionSpider.height()/4)) + 'px,' + (50-getDriveOnOffPos(section5start + (0.1 * section5Height), section5start + (0.3 * section5Height))) + 'vw) '});
 			}
 			
-			if (jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) > section5start + (0.3 * section5Height) + RotateMobile) { // ensure full exit
-				jQuery(vehicle1).css({transform: 'translateX('+ (-80 - RotateMobile) +'vw) translateY(-' + ((0.25 * jQuery(vehicle1).width()) + (sectionSpider.height()/4)) + 'px) rotate(90deg)'});
-				vehicle3.css({transform: 'translateX(100vw)'});
+			if (jQuery(vehicle1).offset().top + (1.1 * jQuery(vehicle1).height()) > section5start + (0.3 * section5Height)) { // ensure full exit
+				jQuery(vehicle1).css({transform: 'translateX(-80vw) rotate(90deg)'});
 			}
 			
-			if (jQuery(vehicle2).offset().top + (1.1 * jQuery(vehicle2).height()) < section5start + RotateMobile){
-				jQuery(vehicle2).css({transform: 'translateX('+ (-80 - RotateMobile) +'vw)'});
-			}
-			
-			if (jQuery(vehicle2).offset().top + (1.1 * jQuery(vehicle2).height()) >= section5start + Vehicle2Mobile && jQuery(vehicle2).offset().top + (1.1 * jQuery(vehicle2).height()) <= section5start + (0.4 * section5Height) + Vehicle2Mobile) { //vehicle2 enter
+			if (jQuery(vehicle2).offset().top + (1.1 * jQuery(vehicle2).height()) >= section5start && jQuery(vehicle2).offset().top + (1.1 * jQuery(vehicle2).height()) <= section5start + (0.4 * section5Height)) { //vehicle2 enter
 				jQuery(vehicle2section).css('visibility', 'visible');
-				vehicle2Offset = (Vehicle2Mobile > 0)?17.675:7.25;
 				//jQuery(vehicle2).css({transform: 'translateX(' + (-80 - getDriveOnOffPos(section5start, section5start + (0.5 * section5Height))) + 'vw)'});
-				jQuery(vehicle2).css({transform: 'translateX(' + Math.min(vehicle2Offset,(-70 - getDriveOnOffPos(section5start + Vehicle2Mobile, section5start + (0.4 * section5Height) + Vehicle2Mobile,vehicle2)) +vehicle2Offset) + 'vw)'});
-				vehicle3.css({transform: 'translateX(100vw)'});
-			}
-			
-			if (jQuery(vehicle2).offset().top + (1.1 * jQuery(vehicle2).height()) >= section5start + (0.4 * section5Height) + Vehicle2Mobile && jQuery(vehicle2).offset().top + (1.1 * jQuery(vehicle2).height()) <= section6start + Vehicle2Mobile) { //vehicle2 force position
+				jQuery(vehicle2).css({transform: 'translateX(' + (-70 - getDriveOnOffPos(section5start, section5start + (0.4 * section5Height),vehicle2)) + 'vw)'});
 				
-				jQuery(vehicle2).css({transform: 'translateX('+((Vehicle2Mobile > 0)?17.675:7.25)+'vw)'});
-				vehicle3.css({transform: 'translateX(100vw)'});
 			}
 			
-			if(jQuery(vehicle2blue).offset().top + (0.5 * vehicle2.height()) < section6start + Vehicle2Mobile){ // ensure full exit
+			//if (scrollPosition + windowHeight >= section6start && scrollPosition + windowHeight <= jQuery('#image-345-9').offset().top + jQuery('#image-345-9').height()) { // vehicle 2 exit, vehicle2blue enter
+			
+			if(jQuery(vehicle2blue).offset().top + (0.5 * vehicle2.height()) < section6start){ // ensure full exit
 				jQuery(vehicle2blue).css('transition', 'ease all 0.5s');
 				jQuery(vehicle2blue).css({transform: 'translateX(-80vw)'});
-				vehicle3.css({transform: 'translateX(100vw)'});
 			}
 			
 			if (jQuery(vehicle2).offset().top + (0.5 * vehicle2.height()) >= section6start && jQuery(vehicle2).offset().top + (0.5 * vehicle2.height()) <= section6start + (0.5*section6Height)) { // vehicle 2 exit, vehicle2blue enter
-				jQuery(vehicle2blue).css('transition', 'none');
-				console.log((-70-getDriveOnOffPos(section6start, section6start + (0.5*section6Height), vehicle2 )));
-				if(Vehicle2Mobile > 0){
-				   $translateBlue = (Math.max(((Vehicle2Mobile > 0)?17.675:7.25),Math.abs( (-(80+getDriveOnOffPos(section6start, section6start + (0.5*section6Height), vehicle2blue)))+60)+((Vehicle2Mobile > 0)?17.675:7.25)) -80);
-				}else if(Vehicle2Mobile == 0) {
-				   $translateBlue = ((-70-getDriveOnOffPos(section6start, section6start + (0.5*section6Height), vehicle2blue ))  )
-				}
-				//jQuery(vehicle2blue).css({transform: 'translateX(' + ((-70-getDriveOnOffPos(section6start, section6start + (0.5*section6Height), vehicle2blue ))  ) + 'vw)'});
-				
-				if(transSmoother == 0){
-					transSmoother = 1;
-					jQuery(vehicle2blue).css({transform: 'translateX(' +$translateBlue + 'vw)'});				
-					jQuery(vehicle2).css({transform: 'translateX(' +Math.max(((Vehicle2Mobile > 0)?17.675:7.25),Math.abs( (-(80+getDriveOnOffPos(section6start, section6start + (0.5*section6Height), vehicle2)))+60)+((Vehicle2Mobile > 0)?17.675:7.25)) + 'vw)'});
-				}else{
-					transSmoother = 0;
-					jQuery(vehicle2).css({transform: 'translateX(' +Math.max(((Vehicle2Mobile > 0)?17.675:7.25),Math.abs( (-(80+getDriveOnOffPos(section6start, section6start + (0.5*section6Height), vehicle2)))+60)+((Vehicle2Mobile > 0)?17.675:7.25)) + 'vw)'});
-					jQuery(vehicle2blue).css({transform: 'translateX(' +$translateBlue + 'vw)'});
-				}
-				
-				vehicle3.css({transform: 'translateX(100vw)'});
-			}
-			
-			if(jQuery(vehicle2).offset().top + (0.5 * vehicle2.height()) > section6start + (0.5*section6Height)){
-				
-				jQuery(vehicle2).css({transform: 'translateX(80vw)'});
+				jQuery(vehicle2blue).css('transition', 'ease all 0.05s');
+				//console.log(-80+getDriveOnOffPos(section6start, section6start + (0.5*section6Height) ));
+				jQuery(vehicle2blue).css({transform: 'translateX(' + (-70-getDriveOnOffPos(section6start, section6start + (0.5*section6Height), vehicle2blue )) + 'vw)'});
+				jQuery(vehicle2).css({transform: 'translateX(' +Math.abs( (-(80+getDriveOnOffPos(section6start, section6start + (0.5*section6Height), vehicle2)))+60) + 'vw)'});
+				//jQuery(vehicle2).scrollTop(Math.min(section6start - jQuery(vehicle2).height(),jQuery(vehicle2).scrollTop()));
+				//console.log((((0.5*jQuery(vehicle2).width()) / jQuery(window).width())*100));
 			}
 			
 			if (jQuery(vehicle2blue).offset().top + jQuery(vehicle2blue).height() >= section7start - (0.2* section6Height) && jQuery(vehicle2blue).offset().top + jQuery(vehicle2blue).height() <= section7start + (0.5 * section7Height)) { // vehicle2blue exit
 				jQuery(vehicle3).css('visibility', 'visible');
 				vehicle2blue.css({transform: 'translateX(' + (Math.abs(getDriveOnOffPos(section7start - (0.2* section6Height), section7start  + (0.5 * section7Height),vehicle2blue))+9 ) + 'vw)'});
-				vehicle3.css({transform: 'translateX(100vw)'});
+				
 			}
 			
 			if (jQuery(vehicle2blue).offset().top + jQuery(vehicle2blue).height() > section7start + (0.5 * section7Height)) { // vehicle2blue full exit
 				jQuery(vehicle3).css('visibility', 'visible');
-				vehicle2blue.css({transform: 'translateX(80vw)'});
-				vehicle3.css({transform: 'translateX(100vw)'});
+				vehicle2blue.css({transform: 'translateX(-80vw)'});
+				
 			}
 			
 			if (jQuery(vehicle3).offset().top + jQuery(vehicle3).height() < section7start ) { //vehicle3 full exit
@@ -344,16 +298,12 @@ jQuery(document).ready(function () {
 			}
 			
 			if (jQuery(vehicle3).offset().top + jQuery(vehicle3).height() >= section7start && jQuery(vehicle3).offset().top + jQuery(vehicle3).height() <= section7start  + (0.5 * section7Height)) { //vehicle3 enter
-				vehicle3.css({transform: 'translateX(' + (Math.max(0, Math.abs(getDriveOnOffPosBus(section7start, section7start  + (0.5 * section7Height))))+10) + 'vw)'});
-				console.log('bus');
-			}
-			
-			if (jQuery(vehicle3).offset().top + jQuery(vehicle3).height() > section7start  + (0.5 * section7Height) && jQuery(vehicle3).offset().top + jQuery(vehicle3).height() < section8start) { //vehicle3 force position
-				vehicle3.css({transform: 'translateX(10vw)'});
+				vehicle3.css({transform: 'translateX(' + Math.max(0, Math.abs(getDriveOnOffPosBus(section7start, section7start  + (0.5 * section7Height)))) + 'vw)'});
+				//console.log(getDriveOnOffPosBus(section7start, section8start));
 			}
 			
 			if (jQuery(vehicle3).offset().top + jQuery(vehicle3).height() >= section8start && jQuery(vehicle3).offset().top + jQuery(vehicle3).height() <= section8start  + (0.5 * section8Height)) { //vehicle3 exit
-				vehicle3.css({transform: 'translateX(' + ((-100-(-getDriveOnOffPosBus(section8start , section8start  + (0.5 * section8Height)) ))+10) + 'vw)'});
+				vehicle3.css({transform: 'translateX(' + (-100-(-getDriveOnOffPosBus(section8start , section8start  + (0.5 * section8Height)) )) + 'vw)'});
 				//console.log(-getDriveOnOffPosBus(section8start , section8start  + (0.5 * section8Height)));
 			}
 			
