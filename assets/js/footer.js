@@ -55,6 +55,16 @@ function getDriveOnOffPos (startpoint, endpoint,vehicle = vehicle1) {
 	return Math.max(-80, (-0.8 * ((parseFloat(travelDistance - travelLeft) / travelDistance) * 100)));
 }
 
+function getDriveOnOffPosBlue (fromVW, toVW, startpoint, endpoint, vehicle = vehicle2blue) {
+	
+	travelDistance = endpoint - startpoint;
+	travelLeft = endpoint - (jQuery(vehicle).offset().top + vehicle.height());
+	VWDist = Math.abs(toVW - fromVW);
+	distPerc = ((parseFloat(travelDistance - travelLeft) / travelDistance) * 100)
+	VW = ((VWDist/100) * distPerc) - VWDist;
+	return Math.min(VW,toVW);
+}
+
 function getDriveOnOffPosBus (startpoint, endpoint) {
 	
 	travelDistance = endpoint - startpoint;
@@ -69,6 +79,12 @@ function getColour (startpoint, endpoint) {
 	changePerPixel = parseFloat(1 / travelDistance);
 	travelLeft = (parseFloat(endpoint) - parseFloat(jQuery(vehicle1).offset().top+vehicle1.height()));
 	return Math.max(0, ((travelDistance - travelLeft) * parseFloat(changePerPixel)));
+}
+function getAnimPerc(startpoint, endpoint, vehicle = vehicle1){
+	travelDistance = endpoint - startpoint;
+	travelLeft = endpoint - (jQuery(vehicle).offset().top + (0.5*vehicle.height()));
+	distPerc = ((parseFloat(travelDistance - travelLeft) / travelDistance) * 100)
+	return distPerc;
 }
 
 //?ct_builder=true
@@ -301,9 +317,10 @@ jQuery(document).ready(function () {
 			
 			if (jQuery(vehicle2).offset().top + (0.5 * vehicle2.height()) >= section6start && jQuery(vehicle2).offset().top + (0.5 * vehicle2.height()) <= section6start + (0.5*section6Height)) { // vehicle 2 exit, vehicle2blue enter
 				jQuery(vehicle2blue).css('transition', 'none');
-				console.log((-70-getDriveOnOffPos(section6start, section6start + (0.5*section6Height), vehicle2 )));
+				console.log('testing: '+Math.min(80,  ((Vehicle2Mobile > 0)?17.675:7.25) + (0.8*getAnimPerc(section6start, section6start + (0.5*section6Height)-80, vehicle2blue )) ));
 				if(Vehicle2Mobile > 0){
-				   $translateBlue = (Math.max(((Vehicle2Mobile > 0)?17.675:7.25),Math.abs( (-(80+getDriveOnOffPos(section6start, section6start + (0.5*section6Height), vehicle2blue)))+60)+((Vehicle2Mobile > 0)?17.675:7.25)) -80);
+				   //$translateBlue = (Math.max(((Vehicle2Mobile > 0)?17.675:7.25),Math.abs( (-(80+getDriveOnOffPos(section6start, section6start + (0.5*section6Height), vehicle2blue)))+60)+((Vehicle2Mobile > 0)?17.675:7.25)) -80);
+				   $translateBlue = getDriveOnOffPosBlue(-80,50,section6start, section6start + (0.5*section6Height)-80, vehicle2blue );
 				}else if(Vehicle2Mobile == 0) {
 				   $translateBlue = ((-70-getDriveOnOffPos(section6start, section6start + (0.5*section6Height), vehicle2blue ))  )
 				}
@@ -312,24 +329,25 @@ jQuery(document).ready(function () {
 				if(transSmoother == 0){
 					transSmoother = 1;
 					jQuery(vehicle2blue).css({transform: 'translateX(' +$translateBlue + 'vw)'});				
-					jQuery(vehicle2).css({transform: 'translateX(' +Math.max(((Vehicle2Mobile > 0)?17.675:7.25),Math.abs( (-(80+getDriveOnOffPos(section6start, section6start + (0.5*section6Height), vehicle2)))+60)+((Vehicle2Mobile > 0)?17.675:7.25)) + 'vw)'});
+					jQuery(vehicle2).css({transform: 'translateX(' +Math.min(80,  ((Vehicle2Mobile > 0)?17.675:7.25) + (0.8*getAnimPerc(section6start, section6start + (0.5*section6Height)-120, vehicle2blue )) ) + 'vw)'});
+					//(10- ((getDriveOnOffPos(section6start, section6start + (0.5*section6Height)-80, vehicle2) ) * 0.125) )
 				}else{
 					transSmoother = 0;
-					jQuery(vehicle2).css({transform: 'translateX(' +Math.max(((Vehicle2Mobile > 0)?17.675:7.25),Math.abs( (-(80+getDriveOnOffPos(section6start, section6start + (0.5*section6Height), vehicle2)))+60)+((Vehicle2Mobile > 0)?17.675:7.25)) + 'vw)'});
+					jQuery(vehicle2).css({transform: 'translateX(' +Math.min(80,  ((Vehicle2Mobile > 0)?17.675:7.25) + (0.8*getAnimPerc(section6start, section6start + (0.5*section6Height)-120, vehicle2blue )) ) + 'vw)'});
 					jQuery(vehicle2blue).css({transform: 'translateX(' +$translateBlue + 'vw)'});
 				}
 				
 				vehicle3.css({transform: 'translateX(100vw)'});
 			}
 			
-			if(jQuery(vehicle2).offset().top + (0.5 * vehicle2.height()) > section6start + (0.5*section6Height)){
+			if(jQuery(vehicle2).offset().top + (0.5 * vehicle2.height()) > section6start + (0.5*section6Height)){ // vehicle2 full exit
 				
 				jQuery(vehicle2).css({transform: 'translateX(80vw)'});
 			}
 			
 			if (jQuery(vehicle2blue).offset().top + jQuery(vehicle2blue).height() >= section7start - (0.2* section6Height) && jQuery(vehicle2blue).offset().top + jQuery(vehicle2blue).height() <= section7start + (0.5 * section7Height)) { // vehicle2blue exit
-				jQuery(vehicle3).css('visibility', 'visible');
-				vehicle2blue.css({transform: 'translateX(' + (Math.abs(getDriveOnOffPos(section7start - (0.2* section6Height), section7start  + (0.5 * section7Height),vehicle2blue))+9 ) + 'vw)'});
+				jQuery(vehicle3).css('visibility', 'visible');		
+				vehicle2blue.css({transform: 'translateX(' + Math.max(((Vehicle2Mobile > 0)?50:10),getDriveOnOffPosBlue(50,80,section6start, section6start + (0.5*section6Height)-80, vehicle2blue ) - ((Vehicle2Mobile > 0)?0:20) ) + 'vw)'});
 				vehicle3.css({transform: 'translateX(100vw)'});
 			}
 			
@@ -343,9 +361,11 @@ jQuery(document).ready(function () {
 				vehicle3.css({transform: 'translateX(100vw)'});
 			}
 			
-			if (jQuery(vehicle3).offset().top + jQuery(vehicle3).height() >= section7start && jQuery(vehicle3).offset().top + jQuery(vehicle3).height() <= section7start  + (0.5 * section7Height)) { //vehicle3 enter
+			vehicle3Offset = ((Vehicle2Mobile > 0)?100:0)
+			
+			if (jQuery(vehicle3).offset().top + jQuery(vehicle3).height() >= section7start + vehicle3Offset && jQuery(vehicle3).offset().top + jQuery(vehicle3).height() <= section7start  + (0.5 * section7Height) + vehicle3Offset) { //vehicle3 enter
 				vehicle3.css({transform: 'translateX(' + (Math.max(0, Math.abs(getDriveOnOffPosBus(section7start, section7start  + (0.5 * section7Height))))+10) + 'vw)'});
-				console.log('bus');
+				
 			}
 			
 			if (jQuery(vehicle3).offset().top + jQuery(vehicle3).height() > section7start  + (0.5 * section7Height) && jQuery(vehicle3).offset().top + jQuery(vehicle3).height() < section8start) { //vehicle3 force position
