@@ -8,6 +8,10 @@ html {
 
 body {
   background-color: #e8e8e8;
+
+  svg:not(:root) {
+	overflow: visible;
+  }
 }
 
 
@@ -83,6 +87,47 @@ div#wpadminbar {
 	position: relative;
 	&:before {
 	  display: none;
+	}
+  }
+}
+
+
+#section1redcircle {
+  svg {
+  }
+
+  div {
+	&.text1dynamic,
+	&.text1static,
+	&.text2dynamic,
+	&.text2static {
+	  color: $col-negative;
+	  position: absolute;
+	  white-space: nowrap;
+	  line-height: 1;
+	}
+
+	&.text1static,
+	&.text2static {
+	  font-weight: 700;
+	}
+
+	&.text1dynamic {
+	  font-weight: 900;
+	  top: 25.25rem;
+	  left: 30.521vw;
+	}
+
+	&.text1static {
+	  top: 26.5rem;
+	  left: 30.573vw;
+	}
+
+	&.text2dynamic {
+	  font-weight: 800;
+	}
+
+	&.text2static {
 	}
   }
 }

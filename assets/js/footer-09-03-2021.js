@@ -84,7 +84,7 @@ function getAnimPerc (startpoint, endpoint, vehicle = vehicle1) {
 	return distPerc;
 }
 
-function getAnimPercSpider (startpoint, endpoint, scrollpos) {
+function getAnimPercSpider (startpoint, endpoint,scrollpos) {
 	travelDistance = endpoint - startpoint;
 	travelLeft = endpoint - scrollpos;
 	distPerc = ((parseFloat(travelDistance - travelLeft) / travelDistance) * 100)
@@ -101,7 +101,7 @@ jQuery(document).ready(function () {
 		
 		//spider web
 		sectionSpider = jQuery('#sectionSpider');
-		sectionSpider.css('transition', 'ease opacity .5s');
+		sectionSpider.css('transition', 'none');
 		// vehicles
 		//vehicle 1 (van) section
 		vehicle1section = jQuery('#vehicle1section');
@@ -114,9 +114,9 @@ jQuery(document).ready(function () {
 		// jQuery(vehicle1purple).css('opacity', '0');
 		// jQuery(vehicle1purple).css('transition', 'ease transform 0.1s');
 		// jQuery(vehicle1).css('transition', 'ease transform 0.1s');
-		//jQuery(vehicle1).css({
+		 //jQuery(vehicle1).css({
 		//	'transform-origin': '50% 100% 0px',
-		//	'-webkit-transform-origin': '50% 100% 0px'
+		 //	'-webkit-transform-origin': '50% 100% 0px'
 		// });
 		//vehicle1RotateTo = jQuery('#section4circle').offset().top
 		//console.log(vehicle1RotateTo);
@@ -138,7 +138,7 @@ jQuery(document).ready(function () {
 		//vehicle 3 (bus) section
 		vehicle3section = jQuery('#vehicle3section');
 		vehicle3wrapper = jQuery('#vehicle3wrapper');
-		vehicle3 = jQuery(jQuery('.vehicle3js')[((jQuery(window).width() >= 992) ? 0 : 1)]);
+		vehicle3 = jQuery(jQuery('.vehicle3js')[((jQuery(window).width() > 992) ? 0 : 1)]);
 		vehicle3.css('transition', 'none');
 		vehicle3.css({transform: 'translateX(100vw)'});
 		// jQuery(document).ready(function () {
@@ -188,10 +188,10 @@ jQuery(document).ready(function () {
 			var scrollPosition = jQuery(window).scrollTop();
 			if (scrollPosition < section1start + (0.5 * section1Height)) {
 				jQuery(vehicle1).css('transition', 'none');
-				console.log(-0.22 * getAnimPercSpider(0, section1start + (0.5 * section1Height), scrollPosition));
-				sectionSpider.css({transform: 'translateY(' + -0.16 * getAnimPercSpider(0, section1start + (0.5 * section1Height), scrollPosition) + 'vh)'});
+				console.log(-0.22 * getAnimPercSpider(0,section1start + (0.5 * section1Height),scrollPosition));
+				sectionSpider.css({transform: 'translateY(' + -0.16 * getAnimPercSpider(0,section1start + (0.5 * section1Height),scrollPosition) + 'vh)'});
 				//sectionSpider.css({transform: 'translateY(-' + Math.min(sectionSpider.height() / 4, (1 * (sectionSpider.height() / 100) * ((0.5 * ((scrollPosition / (section1start + section1Height)) * 100))))) + 'px)'});
-				vehicle1.css({transform: 'translateY(' + -0.31 * getAnimPercSpider(0, section1start + (0.5 * section1Height), scrollPosition) + 'vh)'});
+				vehicle1.css({transform: 'translateY(' + -0.31 * getAnimPercSpider(0,section1start + (0.5 * section1Height),scrollPosition) + 'vh)'});
 				vehicle1purple.css({transform: 'translateY(' + (1 * (sectionSpider.height() / 100) * ((0.5 * ((scrollPosition / (section1start + (1 * section1Height))) * 100)))) + 'px)'});
 				vehicle3.css({transform: 'translateX(100vw)'});
 			}
@@ -229,9 +229,7 @@ jQuery(document).ready(function () {
 			// 	vehicle1section.css('position', 'absolute');
 			// }
 			
-			if (scrollPosition >= section8start - (windowHeight * .75)) {
-				sectionSpider.css('opacity', '0');
-			} else if (scrollPosition >= (section3start - (windowHeight * .75))) {
+			if (scrollPosition >= (section2start - (windowHeight * .75))) {
 				sectionSpider.css('opacity', '.5');
 			} else {
 				sectionSpider.css('opacity', '1');
@@ -273,9 +271,9 @@ jQuery(document).ready(function () {
 				window.fromPosition = 3;
 				//vehicle1Rotation = getDegrees(section4start, vehicle1RotateTo + (0.5 * jQuery('#section4circle').height()));
 				//
-				vehicle1Rotation = getAnimPerc(section4start - (0.6 * jQuery(vehicle1).height()), vehicle1RotateTo - (0.6 * jQuery(vehicle1).height()), vehicle1);
+				vehicle1Rotation = getAnimPerc(section4start - (0.6 * jQuery(vehicle1).height()), vehicle1RotateTo - (0.6 * jQuery(vehicle1).height()) ,vehicle1);
 				//vehicle1Drift = (jQuery(vehicle1).width() / 100) * vehicle1DriftPct;
-				jQuery(vehicle1).css({transform: ' translate(0px, -' + ((0.25 * jQuery(vehicle1).width()) + (sectionSpider.height() / 4)) + 'px) rotate(' + (0.9 * vehicle1Rotation) + 'deg)'});
+				jQuery(vehicle1).css({transform: ' translate(0px, -' + ((0.25 * jQuery(vehicle1).width()) + (sectionSpider.height() / 4)) + 'px) rotate(' + (0.9*vehicle1Rotation) + 'deg)'});
 				vehicle3.css({transform: 'translateX(100vw)'});
 				
 			}
