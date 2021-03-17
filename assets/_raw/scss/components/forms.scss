@@ -1,4 +1,4 @@
-#form-home-contact {
+#form-contact {
   form {
 	label.forminator-label {
 	  display: none;
@@ -41,10 +41,53 @@
 		background-color: transparent;
 		background-size: contain;
 		background-position: center center;
-
 		@include respond-above(md) {
 		  width: 3.8125rem;
 		  height: 2.0625rem;
+		}
+	  }
+	}
+  }
+}
+
+
+#form-contact-header {
+  form {
+	label.forminator-label {
+	  display: none;
+	}
+
+	.forminator-row {
+	  display: flex;
+	  flex-direction: column;
+	  margin-bottom: 0;
+	}
+
+	input {
+	  font-family: $font-default;
+
+	  &::-webkit-input-placeholder,
+	  &::-moz-placeholder,
+	  &:-ms-input-placeholder,
+	  &::-webkit-input-placeholder,
+	  &::placeholder {
+		color: #fff;
+	  }
+
+	  &[type="text"],
+	  &[type="email"] {
+		text-align: left;
+		color: #fff;
+		border: none;
+		border-bottom: 2px solid #fff;
+		background: transparent;
+		font-size: 1rem;
+		padding: .75rem .625rem;
+		width: 34.8125rem;
+		margin-bottom: 2.25rem;
+
+		&:focus {
+		  outline: none;
 		}
 	  }
 	}

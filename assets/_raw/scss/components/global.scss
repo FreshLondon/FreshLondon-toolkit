@@ -8,9 +8,22 @@ html {
 
 body {
   background-color: #e8e8e8;
+  opacity: 0;
+  transition: ease opacity .5s;
+
+  &.page-loaded {
+	opacity: 1;
+  }
 
   svg:not(:root) {
 	overflow: visible;
+  }
+}
+
+
+.modal-open-hover {
+  &:hover {
+	cursor: pointer;
   }
 }
 
@@ -97,12 +110,23 @@ div#wpadminbar {
   }
 
   div {
+	&.text1wrapper {
+	  position: absolute;
+	  top: 0%;
+	  left: 80%;
+	}
+
+	&.text2wrapper {
+	  position: absolute;
+	  top: 58%;
+	  left: 14%;
+	}
+
 	&.text1dynamic,
 	&.text1static,
 	&.text2dynamic,
 	&.text2static {
 	  color: $col-negative;
-	  position: absolute;
 	  white-space: nowrap;
 	  line-height: 1;
 	}
@@ -114,20 +138,10 @@ div#wpadminbar {
 
 	&.text1dynamic {
 	  font-weight: 900;
-	  top: 25.25rem;
-	  left: 30.521vw;
-	}
-
-	&.text1static {
-	  top: 26.5rem;
-	  left: 30.573vw;
 	}
 
 	&.text2dynamic {
 	  font-weight: 800;
-	}
-
-	&.text2static {
 	}
   }
 }
