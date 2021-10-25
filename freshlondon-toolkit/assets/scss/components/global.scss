@@ -1,0 +1,7 @@
+body {
+  .ct-code-block {
+	&:empty {
+	  display: none;
+	}
+  }
+}

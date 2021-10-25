@@ -1,0 +1,19 @@
+/**
+ * Here we import all the SCSS into one.
+ * 
+ * @version 1.0
+ * @since 1.0
+ */
+// Import style libs, variables and mixins
+@import 'lib/variables';
+@import "lib/decimal";
+@import "lib/pixels-to-rem";
+@import 'lib/mixins';
+//
+// Import style components
+@import 'components/global';
+body {
+  @import 'components/typography';
+  @import 'components/navigation';
+  @import 'components/buttons-links';
+}
