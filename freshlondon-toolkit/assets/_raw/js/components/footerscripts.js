@@ -15,4 +15,3 @@ jQuery(function ($) {
 		console.log('footer scripts finished');
 	});
 });
-

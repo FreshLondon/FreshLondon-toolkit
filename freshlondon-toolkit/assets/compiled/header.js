@@ -2,7 +2,7 @@ function setFontSize (size = 1) {
 	let winWidth = jQuery(window).width();
 	if (winWidth <= 991) {
 		//base font size at 750px is 22px.
-		let baseFontSizeSmall = 29.1;
+		let baseFontSizeSmall = 16;
 		let winPercentSmall = winWidth / 991;
 		let fontSizeSmallFinal = window.finalFont = (baseFontSizeSmall * winPercentSmall);
 		// console.log('handheld detected, font size is: ' + fontSizeSmallFinal);

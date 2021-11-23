@@ -35,15 +35,15 @@ function buildStylesFront () {
 		.pipe(sass({outputStyle: 'compressed'}))
 		.pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7']))
 		// .pipe(sourcemaps.write(false))
-		.pipe(dest('../css'))
+		.pipe(dest('../compiled'))
 }
 
-// Compile JS from files.
-gulp.task('scripts', function () {
-	return gulp.src('./lib/*.js')
-		.pipe(concat('all.js'))
-		.pipe(gulp.dest('./dist/'));
-});
+// // Compile JS from files.
+// gulp.task('scripts', function () {
+// 	return gulp.src('./lib/*.js')
+// 		.pipe(concat('all.js'))
+// 		.pipe(gulp.dest('./dist/'));
+// });
 
 // Watch changes on all *.scss files and trigger buildStyles() at the end.
 function watchFiles () {
@@ -53,17 +53,35 @@ function watchFiles () {
 		// series(buildStylesFront, buildStylesClient)
 		series(buildStylesFront)
 	);
+	watch(
+		['js/lib/*'],
+		{events: 'all', ignoreInitial: false},
+		series(scriptsHeader)
+	);
+	watch(
+		['js/components/*'],
+		{events: 'all', ignoreInitial: false},
+		series(scriptsFooter)
+	);
 }
 
-// function scriptsFooter() {
-// 	return src([
-// 		'js/footer/setFontSize.js',
-// 		// 'app/js/components/footerscripts.js',
-// 	])
-// 		.pipe(concat('footer.js'))
-// 		.pipe(dest('app/dist/'));
-// }
+function scriptsHeader () {
+	return src([
+		'js/lib/setFontSize.js',
+	])
+		.pipe(concat('header.js'))
+		.pipe(dest('../compiled'));
+}
 
+function scriptsFooter () {
+	return src([
+		'js/components/footerscripts.js',
+	])
+		.pipe(concat('footer.js'))
+		.pipe(dest('../compiled'));
+}
+
+// minifying stuff
 function JavaScriptMin () {
 	return src(['js/*/*.js'])
 		.pipe(uglify())

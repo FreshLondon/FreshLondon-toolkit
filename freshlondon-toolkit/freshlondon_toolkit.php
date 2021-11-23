@@ -9,7 +9,6 @@
 
 //ini_set('memory_limit','512M');
 
-
 update_option( 'isStagingEnvironment', true );
 const FRESH_PLUGIN = __DIR__;
 /**s
@@ -48,16 +47,7 @@ function fl_toolkit_admin_head() {
  */
 include 'functions.php';
 
-/**
- * create initial table and insert data
- */
 
-function freshlondon_activate() {
-    //create_games_table();
-//    fetch_all_games();
-}
-
-register_activation_hook( __FILE__, 'freshlondon_activate' );
 
 
 
@@ -65,7 +55,7 @@ register_activation_hook( __FILE__, 'freshlondon_activate' );
 /**
  * Add admin pages
  */
-add_action( 'admin_menu', 'freshlondon_admin_pages' );
+//add_action( 'admin_menu', 'freshlondon_admin_pages' );
 
 function freshlondon_admin_pages() {
 //    add_menu_page(
